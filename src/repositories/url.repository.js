@@ -10,4 +10,13 @@ async function create(userId, url, shortedUrl, createdAt) {
   return rows[0];
 }
 
-export default { create };
+async function findById(id) {
+  const { rows } = await db.query(`
+    SELECT *
+    FROM urls
+    WHERE id = $1
+  ;`, [id]);
+  return rows[0];
+}
+
+export default { create, findById };

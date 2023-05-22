@@ -13,8 +13,19 @@ async function createShortUrl(req, res) {
 
     res.status(201).send({ id: insertedUrl.id, shortUrl: insertedUrl.shortUrl });
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err.message);
   }
 }
 
-export default { createShortUrl };
+async function index(req, res) {
+  const { id } = res.locals.params;
+  try {
+    const shortedItem = await urlRepository.findById(id);
+    if (!shortedItem) res.status(404).send('Item not found');
+
+    res.status(200).send(shortedItem);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
+export default { createShortUrl, index };
