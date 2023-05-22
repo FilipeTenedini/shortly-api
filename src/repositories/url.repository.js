@@ -12,11 +12,32 @@ async function create(userId, url, shortedUrl, createdAt) {
 
 async function findById(id) {
   const { rows } = await db.query(`
-    SELECT *
+    SELECT id, "shortUrl", url
     FROM urls
     WHERE id = $1
   ;`, [id]);
   return rows[0];
 }
 
-export default { create, findById };
+async function findByShortUrl(shortUrl) {
+  const { rows } = await db.query(`
+    SELECT url
+    FROM urls
+    WHERE "shortUrl" = $1
+  ;`, [shortUrl]);
+  return rows[0];
+}
+
+async function update(shortUrl) {
+  const { rowCount } = await db.query(`
+    UPDATE urls
+    SET "viewsCount" = "viewsCount" + 1
+    WHERE "shortUrl" = $1
+  ;`, [shortUrl]);
+
+  return rowCount;
+}
+
+export default {
+  create, findById, findByShortUrl, update,
+};

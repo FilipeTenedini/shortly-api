@@ -28,4 +28,20 @@ async function index(req, res) {
     res.status(500).send(err.message);
   }
 }
-export default { createShortUrl, index };
+
+async function redirect(req, res) {
+  const { shortUrl } = res.locals.params;
+
+  try {
+    const { url } = await urlRepository.findByShortUrl(shortUrl);
+    if (!url) return res.status(404).send('Url not found');
+
+    const updateUrlViews = await urlRepository.update(shortUrl);
+    if (!updateUrlViews) return res.status(500).send('Fail to update');
+
+    res.redirect(url);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
+export default { createShortUrl, index, redirect };
