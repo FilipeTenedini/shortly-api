@@ -31,8 +31,9 @@ async function signin(req, res) {
     if (!authUser) res.status(401).send('Incorrect email or password');
 
     const data = { id: user.id, name: user.name, email: user.email };
+    const config = { expiresIn: 60 * 60 * 24 * 30 };
+    const token = jwt.sign(data, process.env.JWT_SECRET, config);
 
-    const token = jwt.sign(data, process.env.JWT_SECRET);
     res.status(200).send({ token });
   } catch (err) {
     res.status(500).send(err.message);
