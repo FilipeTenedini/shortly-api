@@ -21,7 +21,7 @@ async function index(req, res) {
   const { id } = res.locals.params;
   try {
     const shortedItem = await urlRepository.findById(id);
-    if (!shortedItem) res.status(404).send('Item not found');
+    if (!shortedItem) return res.status(404).send('Short URL not found.');
 
     res.status(200).send(shortedItem);
   } catch (err) {
@@ -50,8 +50,8 @@ async function deleteUrl(req, res) {
   const { user } = res.locals;
 
   try {
-    const shortUrl = await urlRepository.findById(id);
-    if (!shortUrl) return res.status(404).send('Short URL not found.');
+    const shortedItem = await urlRepository.findById(id);
+    if (!shortedItem) return res.status(404).send('Short URL not found.');
 
     const deletedShortUrl = await urlRepository.deleteUrl(id, user.id);
 
