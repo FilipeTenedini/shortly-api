@@ -32,7 +32,8 @@ async function signin(req, res) {
 
     const data = { id: user.id, name: user.name, email: user.email };
     const config = { expiresIn: 60 * 60 * 24 * 30 };
-    const token = jwt.sign(data, process.env.JWT_SECRET, config);
+    const key = process.env.JWT_SECRET || 'uma_chave_publica';
+    const token = jwt.sign(data, key, config);
 
     res.status(200).send({ token });
   } catch (err) {

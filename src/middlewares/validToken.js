@@ -10,8 +10,10 @@ function validToken(req, res, next) {
 
   if (!tokenType || tokenType !== 'Bearer' || !token) return res.status(401).send('User unauthenticated.');
 
+  const key = process.env.JWT_SECRET || 'uma_chave_publica';
+
   try {
-    const validUser = jwt.verify(token, process.env.JWT_SECRET);
+    const validUser = jwt.verify(token, key);
     res.locals.user = validUser;
     next();
   } catch (err) {
