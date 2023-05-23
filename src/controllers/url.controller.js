@@ -33,13 +33,13 @@ async function redirect(req, res) {
   const { shortUrl } = res.locals.params;
 
   try {
-    const { url } = await urlRepository.findByShortUrl(shortUrl);
-    if (!url) return res.status(404).send('Url not found');
+    const urlData = await urlRepository.findByShortUrl(shortUrl);
+    if (!urlData) return res.status(404).send('Url not found');
 
     const updateUrlViews = await urlRepository.update(shortUrl);
     if (!updateUrlViews) return res.status(500).send('Fail to update');
 
-    res.redirect(url);
+    res.redirect(urlData.url);
   } catch (err) {
     res.status(500).send(err.message);
   }
