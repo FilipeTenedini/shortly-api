@@ -28,7 +28,7 @@ async function signin(req, res) {
     const user = await authRepository.findByEmail(email);
 
     const authUser = await bcrypt.compare(password, user.password);
-    if (!authUser) res.status(401).send('Incorrect email or password');
+    if (!authUser) return res.status(401).send('Incorrect email or password');
 
     const data = { id: user.id, name: user.name, email: user.email };
     const config = { expiresIn: 60 * 60 * 24 * 30 };
@@ -39,4 +39,5 @@ async function signin(req, res) {
     res.status(500).send(err.message);
   }
 }
+
 export default { create, signin };

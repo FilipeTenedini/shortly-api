@@ -44,4 +44,7 @@ async function redirect(req, res) {
     res.status(500).send(err.message);
   }
 }
-export default { createShortUrl, index, redirect };
+
+export default {
+  createShortUrl, index, redirect,
+};
