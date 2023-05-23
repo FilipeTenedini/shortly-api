@@ -4,7 +4,7 @@ import sanitizeEntrance from './sanitizeEntrance.js';
 const signUpSchema = joi.object({
   name: joi
     .string()
-    .pattern(/^[a-zA-Z\s]+$/)
+    .pattern(/^[a-zA-ZÀ-ÿ\s]+$/)
     .required()
     .custom(sanitizeEntrance)
     .messages({
