@@ -54,9 +54,10 @@ async function deleteUrl(req, res) {
     if (!shortUrl) return res.status(404).send('Short URL not found.');
 
     const deletedShortUrl = await urlRepository.deleteUrl(id, user.id);
+
     if (!deletedShortUrl) return res.status(401).send('The shortened URL does not belong to this user.');
 
-    res.status(204).send('Deletion successfully executed.');
+    res.sendStatus(204);
   } catch (err) {
     res.status(500).send(err.message);
   }

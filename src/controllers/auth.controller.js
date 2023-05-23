@@ -26,6 +26,7 @@ async function signin(req, res) {
   const { email, password } = res.locals.body;
   try {
     const user = await authRepository.findByEmail(email);
+    if (!user) return res.status(401).send('Invalid email');
 
     const authUser = await bcrypt.compare(password, user.password);
     if (!authUser) return res.status(401).send('Incorrect email or password');

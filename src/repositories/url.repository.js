@@ -39,7 +39,7 @@ async function update(shortUrl) {
 }
 
 async function deleteUrl(id, userId) {
-  const { rowCount } = db.query(`
+  const { rowCount } = await db.query(`
     DELETE
     FROM urls
     WHERE id = $1
