@@ -6,7 +6,7 @@ import rankingRouter from './ranking.routes.js';
 
 const router = Router();
 
-router.use('/auth', authRouter);
+router.use(authRouter);
 
 router.use('/urls', urlRouter);
 
