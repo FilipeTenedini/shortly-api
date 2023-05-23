@@ -9,7 +9,7 @@ import shortUrlParam from '../schemas/shortUrlParam.js';
 
 const urlRouter = Router();
 
-urlRouter.post('/shorten', validateBody(urlSchema), validToken, urlController.createShortUrl);
+urlRouter.post('/shorten', validToken, validateBody(urlSchema), urlController.createShortUrl);
 
 urlRouter.get('/:id', validateParams(idParam), urlController.index);
 
