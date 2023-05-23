@@ -16,12 +16,10 @@ const signUpSchema = joi.object({
     .required(),
   password: joi
     .string()
-    .alphanum()
     .custom(sanitizeEntrance)
     .required(),
   confirmPassword: joi
     .string()
-    .alphanum()
     .valid(joi.ref('password'))
     .custom(sanitizeEntrance)
     .required()
