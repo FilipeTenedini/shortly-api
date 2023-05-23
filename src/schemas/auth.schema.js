@@ -36,7 +36,6 @@ const signInSchema = joi.object({
     .required(),
   password: joi
     .string()
-    .alphanum()
     .custom(sanitizeEntrance)
     .required(),
 });
