@@ -15,4 +15,6 @@ urlRouter.get('/:id', validateParams(idParam), urlController.index);
 
 urlRouter.get('/open/:shortUrl', validateParams(shortUrlParam), urlController.redirect);
 
+urlRouter.delete('/:id', validToken, validateParams(idParam), urlController.deleteUrl);
+
 export default urlRouter;

@@ -38,6 +38,17 @@ async function update(shortUrl) {
   return rowCount;
 }
 
+async function deleteUrl(id, userId) {
+  const { rowCount } = db.query(`
+    DELETE
+    FROM urls
+    WHERE id = $1
+    AND "userId" = $2;
+    `, [id, userId]);
+
+  return rowCount;
+}
+
 export default {
-  create, findById, findByShortUrl, update,
+  create, findById, findByShortUrl, update, deleteUrl,
 };
